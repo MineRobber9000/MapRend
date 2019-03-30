@@ -13,7 +13,7 @@ public class Program {
 	
 	// render options
 	static String worldFolder = ".";
-	static String ressourceFolder = ".";
+	static String resourceFolder = ".";
 	static String worldName = "";
 	static String outputFolder = ".";
 	static String clusterFolder = ".";
@@ -67,10 +67,10 @@ public class Program {
 		} else {
 			System.out.println("Missing Arguments! Expected form: ");
 			System.out.println("either");
-			System.out.println(" map world [ressource [output [day/night [radius [circle/rect [cluster [clusterpath [jsonoutput]]]]]]]]");
+			System.out.println(" map world [resource [output [day/night [radius [circle/rect [cluster [clusterpath [jsonoutput]]]]]]]]");
 			System.out.println(" -> Renders a map of the world");
 			System.out.println(" -> world is the world folder (e.g. .minecraft/worlds/Amar)");
-			System.out.println(" -> ressource is the ressource folder, default is . (e.g. ./ressource)");
+			System.out.println(" -> resource is the resource folder, default is . (e.g. ./resource)");
 			System.out.println(" -> output is the output folder, default is . (e.g. /var/www/maps/)");
 			System.out.println(" -> day/night modifies the daytime, default is day (e.g. day)");
 			System.out.println(" -> radius is the radius of the drawn circle or rectangle in chunks, default is 150 (e.g. 157)");
@@ -79,25 +79,25 @@ public class Program {
 			System.out.println(" -> clusterpath is the folder where the cluster images will be saved, default is output (e.g. /var/www/maps/cluster/)");
 			System.out.println(" -> jsonoutput is the folder where a JSON file containing data is saved, default is clusterpath or, if that's not set, output (e.g. /var/www/maps/json/)");
 			System.out.println(" The world folder must contain an minecraft anvil world");
-			System.out.println(" The ressource folder must contain a colors.json and a biomes.json");
+			System.out.println(" The resource folder must contain a colors.json and a biomes.json");
 			System.out.println("or");
-			System.out.println(" textures ressource");
+			System.out.println(" textures resource");
 			System.out.println(" -> Generates colors.json");
-			System.out.println(" -> ressource is the ressource folder, default is . (e.g. ./ressource)");
-			System.out.println(" The ressource folder must contain a textures.json and a raw folder containing all files from assets/minecraft/textures/blocks/ of a ressource pack.");
+			System.out.println(" -> resource is the resource folder, default is . (e.g. ./resource)");
+			System.out.println(" The resource folder must contain a textures.json and a raw folder containing all files from assets/minecraft/textures/blocks/ of a resource pack.");
 				
 		}
 	}
 	
 	public static void generateTextures(String[] args) {
 		if(args.length >= 2) {
-			ressourceFolder = args[1];
+			resourceFolder = args[1];
 		}
 		printTextureRenderOptions();
-		File ressourceFile = new File(ressourceFolder);
-		File rawFolder = new File(ressourceFile, "raw");
+		File resourceFile = new File(resourceFolder);
+		File rawFolder = new File(resourceFile, "raw");
 		
-		File jsonFile = new File(ressourceFile, "textures.json");
+		File jsonFile = new File(resourceFile, "textures.json");
 		if(!jsonFile.exists()) exitWithError("Cannot find textures.json!");
 	    
 	    JSONObject textureJSON = null;
@@ -180,7 +180,7 @@ public class Program {
 		colorObject.put("colors", colorArray);
 	    
 		try {
-			File outputFile = new File(ressourceFile, "colors.json");
+			File outputFile = new File(resourceFile, "colors.json");
 			FileWriter writer = new FileWriter(outputFile);
 			colorObject.write(writer);
 			writer.flush();
@@ -221,7 +221,7 @@ public class Program {
 	private static void loadVisibleBlocks() {
 		JSONObject colorsJSON = null;
 		try {
-			File jsonFile = new File(ressourceFolder, "colors.json");
+			File jsonFile = new File(resourceFolder, "colors.json");
 			FileInputStream jsonFis;
 			jsonFis = new FileInputStream(jsonFile);
 			byte[] data = new byte[(int)jsonFile.length()];
@@ -303,7 +303,7 @@ public class Program {
 			worldFolder = args[1];
 			
 			if(args.length >= 3) {
-				ressourceFolder = args[2];
+				resourceFolder = args[2];
 				if(args.length >= 4) {
 					outputFolder = args[3];
 					clusterFolder = outputFolder;
@@ -364,7 +364,7 @@ public class Program {
         }
         
         BufferedImage image = createImage();
-        ColorSource colorSource = new JSONColorSource(ressourceFolder);
+        ColorSource colorSource = new JSONColorSource(resourceFolder);
         
         int minClusterX = 0, maxClusterX = 0, minClusterZ = 0, maxClusterZ = 0;
         
@@ -559,7 +559,7 @@ public class Program {
 	static void printRenderOptions() {
 		System.out.println("MapRend startup messages");
 		System.out.println("WorldName: " + worldName);
-		System.out.println("Ressourcefolder: " + ressourceFolder);
+		System.out.println("resourcefolder: " + resourceFolder);
 		System.out.println("Daytime: " + (renderNight ? "Night" : "Day"));
 		System.out.println("Chunkradius: " + chunkRadius);
 		System.out.println("Form: " + (drawRect ? "rect" : "circle"));
@@ -567,7 +567,7 @@ public class Program {
 	
 	static void printTextureRenderOptions() {
 		System.out.println("MapRend Texture Rendering startup messages");
-		System.out.println("Ressource folder: " + ressourceFolder);
+		System.out.println("resource folder: " + resourceFolder);
 	}
 
 }

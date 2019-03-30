@@ -12,10 +12,10 @@ public class JSONColorSource implements ColorSource {
 	boolean[][] green;
 	ColorF[] biomColors;
 	
-	public JSONColorSource(String ressourceFolder) {
+	public JSONColorSource(String resourceFolder) {
 		JSONObject colorsJSON = null;
 		try {
-			File jsonFile = new File(ressourceFolder, "colors.json");
+			File jsonFile = new File(resourceFolder, "colors.json");
 			FileInputStream jsonFis;
 			jsonFis = new FileInputStream(jsonFile);
 			byte[] data = new byte[(int)jsonFile.length()];
@@ -51,7 +51,7 @@ public class JSONColorSource implements ColorSource {
 		}
 		JSONObject biomesJSON = null;
 		try {
-			File jsonFile = new File(ressourceFolder, "biomes.json");
+			File jsonFile = new File(resourceFolder, "biomes.json");
 			FileInputStream jsonFis;
 			jsonFis = new FileInputStream(jsonFile);
 			byte[] data = new byte[(int)jsonFile.length()];
